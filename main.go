@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/heroku/task/lib/db"
@@ -18,7 +19,15 @@ func main() {
 
 	router := mux.NewRouter()
 
-	if err := db.Configure(); err != nil {
+	// database
+	dbconf := db.Config{
+		DBHost:     os.Getenv("DB_HOST"),
+		DBPort:     os.Getenv("DB_PORT"),
+		DBUser:     os.Getenv("DB_USER"),
+		DBPassword: os.Getenv("DB_PASSWORD"),
+		DBName:     os.Getenv("DB_NAME"),
+	}
+	if err := db.Configure(&dbconf); err != nil {
 		log.Fatal(err)
 		fmt.Println(err)
 	}
