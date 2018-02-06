@@ -41,5 +41,11 @@ func main() {
 
 	router.HandleFunc("/moviesbyrating", handler.HandleMoviesByRating).Methods("GET")
 
+	router.HandleFunc("/moviesbygenres", handler.HandleMoviesByGenres).Methods("GET")
+
+	router.HandleFunc("/updatemovierating/{id}/{rating}", handler.HandleUpdateMovieRating).Methods("PUT")
+
+	router.HandleFunc("/updatemoviegenres/{id}/{genres}", handler.HandleUpdateMovieGenres).Methods("PUT")
+
 	log.Fatal(http.ListenAndServe(":8000", router))
 }

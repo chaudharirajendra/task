@@ -10,6 +10,21 @@ CREATE TABLE IF NOT EXISTS movie (
 
 
 
+CREATE TABLE IF NOT EXISTS generes (
+	id integer unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	movie_id varchar(255),
+	genres_name varchar(255),
+	created_on timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_on timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	deleted boolean NOT NULL DEFAULT false
+) ENGINE=InnoDB;
+
+
+//for searching according to generes
+insert into genres (movie_id,genres_name) values (1,'test');
+insert into genres (movie_id,genres_name) values (2,'test2');
+
+
 //for testing the rating serach we need this data.
 insert into movie (title,released_year,rating) values ("movie_gretaer_than_3_rating","2018",4);
 insert into movie (title,released_year,rating) values ("movie_gretaer_than_4_rating","2018",5);

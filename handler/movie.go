@@ -8,6 +8,52 @@ import (
 	"github.com/heroku/task/domain/movie"
 )
 
+//HandleUpdateMovieGenres updates the movie according to genres
+func HandleUpdateMovieGenres(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+
+	ID := params["id"]
+	rating := params["genres"]
+
+	genres, err := movie.UpdateMovieGenres(ID, rating)
+	if handleError(w, r, ServError, err) {
+		return
+	}
+
+	send(w, r, &genres)
+
+}
+
+//HandleUpdateMovieRating updates the movie according to rating
+func HandleUpdateMovieRating(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+
+	ID := params["id"]
+	rating := params["rating"]
+
+	movie, err := movie.UpdateMovieRating(ID, rating)
+	if handleError(w, r, ServError, err) {
+		return
+	}
+
+	send(w, r, &movie)
+
+}
+
+//HandleMoviesByGenres return array of movies object based on genres
+func HandleMoviesByGenres(w http.ResponseWriter, r *http.Request) {
+
+	genres := r.URL.Query().Get("genres")
+	movies, err := movie.GetMoviesByGenres(genres)
+	if handleError(w, r, ServError, err) {
+		return
+	}
+
+	send(w, r, &movies)
+}
+
 //HandleMoviesByRating returns array movie object based on rating
 func HandleMoviesByRating(w http.ResponseWriter, r *http.Request) {
 
